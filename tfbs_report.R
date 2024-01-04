@@ -13,7 +13,7 @@ library(gridBase)
 args <- commandArgs(trailingOnly = TRUE)
 genes_path <- args[1]
 overlap_path <- args[2]
-sites_path <- args[4]
+sites_path <- args[3]
 
 
 mytheme <- theme_linedraw(base_family = "Helvetica") +
