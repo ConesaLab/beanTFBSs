@@ -192,8 +192,8 @@ for (i in 1:length(titles)){
     # Shadow upstream genes regions
     for(j in 1:nrow(ov_sub)){
       rowDF<-ov_sub[j,]
-      dfstart <-rowDF$start - 2000
-      dfend<-rowDF$end - 2000
+      dfstart <-rowDF$start - 5000
+      dfend<-rowDF$end - 5000
       g1<-g1+annotate("rect", xmin = dfstart, xmax = dfend, ymin = 0, 
                       ymax = Inf, alpha = .2)
     }
