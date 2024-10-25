@@ -127,6 +127,41 @@ def add_conservation(s1, s2, s3, record1, record2, record3):
 
 df['conservation_level'] = df.apply(lambda x: add_conservation(s1, s2, s3, x[s1], x[s2], x[s3]), axis = 1)
 
+#overlapping_genes.bed contains studied promoter positions overlapping with the body of upstream genes.
+bed = pd.read_csv('overlapping_genes.bed', sep = '\t', low_memory = False)
+bed.columns = ['source', 'start', 'end', 'score', 'strand', 'gene']
 
+def fill_overlap_dict(gene, overlap_start, overlap_end, d):
+    if not gene in d:
+        d[gene] = []
+        d[gene].append((int(overlap_start)+1, int(overlap_end)+1))
+    else: 
+        d[gene].append((int(overlap_start)+1, int(overlap_end)+1))
+    
+#relative positions of motifs are 1-based and relative to tss
+def add_overlap(rel_motif_start, rel_motif_end, overlap_d, gene):
+    start = rel_motif_start+2000 #make positions relative to the promoter start/end
+    end = rel_motif_end+2000
+    half_len = int((rel_motif_end - rel_motif_start)/2) #calculate half length of a motif. 
+    within_up_gene = False
+    if gene in overlap_d:
+        for i in overlap_d[gene]:
+            overlap_range = range(i[0], i[-1]+1)
+            if start + half_len in overlap_range and end - half_len in overlap_range:
+                within_up_gene = True
+    return(within_up_gene)
+    
+overlap_d = {}
+bed.apply(lambda x: fill_overlap_dict(x['gene'], x['start'], x['end'], overlap_d), axis = 1)
+df['within_upstream_gene'] = f.apply(lambda x: add_overlap(x['motif_relative_start'], x['motif_relative_end'], overlap_d, x['q_gene']), axis = 1)
 
-df.to_csv("conserved_sites_genomic_position.txt", sep = '\t', header=True, index=False)  
+motifs_bed = pd.DataFrame()
+motifs_bed['cl'] = f['conservation_level']
+motifs_bed['start'] = f['motif_relative_start'] + 2000
+motifs_bed['end'] = f['motif_relative_end'] + 2000
+motifs_bed['gene'] = f['q_gene']
+motifs_bed['n'] = f['within_upstream_gene']
+
+f.to_csv("conserved_sites_genomic_position.txt", sep = '\t', header=True, index=False)  
+motifs_bed.to_csv("conserved_motifs.bed", sep = '\t', header=False, index=False)
+
