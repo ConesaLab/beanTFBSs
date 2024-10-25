@@ -10,6 +10,10 @@ library(ggraph)
 library(igraph)
 library(gridBase)
 
+#genes_path: path to the list of genes of interest
+#overlap_path: path to overlapping_genes.bed
+#sites_path: path to S_Table_1_V2_Conserved_Motifs.txt
+
 args <- commandArgs(trailingOnly = TRUE)
 genes_path <- args[1]
 overlap_path <- args[2]
