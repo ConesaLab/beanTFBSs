@@ -1,10 +1,10 @@
 This repository is designed for parsing conserved transcription factor binding sites (TFBSs) in common bean (Phaseolus vulgaris). The provided script can process a .txt file, where a single column houses a user-specified list of genes. For proper formatting, refer to the example file at examples/gene_list.txt. The output is a comprehensive report, motifs_summary.pdf, containing essential information about the requested set of genes, facilitating a detailed analysis of TFBSs.
 
-The arguments required to run the tfbs_report.R:
---genes_path /path/to/the/list/of/genes/of/interest
---overlap_path /path/to/overlapping_genes.bed
---sites_path /path/to/S_Table_1_V2_Conserved_Motifs.txt (make sure the file is unzipped)
-
+The arguments required to run the tfbs_report.R:<br>
+--genes_path /path/to/the/list/of/genes/of/interest<br>
+--overlap_path /path/to/overlapping_genes.bed<br>
+--sites_path /path/to/S_Table_1_V2_Conserved_Motifs.txt (make sure the file is unzipped)<br>
+<br>
 The components of the report are the next:
 1.	This heatmap visually represents the presence or absence of conserved motifs on gene promoters. In this visualization, each row corresponds to a gene, while each column represents different motifs grouped by their respective transcription factor families. Red boxes signify a relatively high number of motifs present on a promoter.
 2.	This visual representation illustrates the relationships between transcription factor families, highlighting their co-occurrence on gene promoters. Nodes in the plot represent individual transcription factor families, while edges denote the co-occurrence of putative sites on genes' promoters.
