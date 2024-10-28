@@ -37,7 +37,7 @@ The conservation test output contains the next columns: q_gene (*P. vulgaris* ge
 
 The TF information file contains two columns: 'Gene_id' (transcription factor gene) and 'Family' (transcription factor family).
    The output file is located in this repository:
-   `beanTFBSs/parsing_script/S_Table_1_V2_Conserved_Motifs.txt.gz`.
+   `beanTFBSs/parsing_script/S_Table_2_V1_Conserved_Motifs.txt`.
    
 13. The genomic positions were tested with `test_genomic_positions.py`.
 
